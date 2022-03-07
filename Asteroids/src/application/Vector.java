@@ -51,9 +51,10 @@ public class Vector {
 	public void setLength(double L) {
 		
 		double currentLength = this.getLength();
-		// guard against division by 0 later
+		// if current length is 0, then current angle is undefined;
+		// assume current angle is 0 (pointing to the right)
 		if (currentLength == 0) {
-			return;
+			this.set(L, 0);
 		} else {
 			// scale vector to have length 1
 			this.multiply(1/currentLength);
@@ -68,7 +69,7 @@ public class Vector {
 	
 	public void setAngle(double angleDegrees) {
 		double L = this.getLength();
-		double angleRadians = Math.toRadians(angleDegrees);
+		double angleRadians = Math.toRadians(angleDegrees - 90);
 		this.x = L * Math.cos(angleRadians);
 		this.y = L *  Math.sin(angleRadians);
 	}
