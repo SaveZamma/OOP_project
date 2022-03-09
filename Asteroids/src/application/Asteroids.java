@@ -17,6 +17,14 @@ import javafx.scene.paint.Color;
 
 
 public class Asteroids extends Application {
+	
+	
+	private ArrayList<Sprite> laserList = new ArrayList<>();
+	private ArrayList<Sprite> asteroidList = new ArrayList<>();
+	
+	/**
+	 *
+	 */
 	@Override
 	public void start(Stage mainStage) {
 		
@@ -52,15 +60,16 @@ public class Asteroids extends Application {
 			
 			Sprite background = new Sprite("src/application/Images/spaceview.png");
 			background.position.set(400, 300);
-
 			
-			Sprite spaceship = new Sprite("src/application/Images/spaceship.png", 100, 100);
-			spaceship.position.set(100, 300);
+			/*
+			 * Sprite spaceship = new Sprite("src/application/Images/spaceship.png", 100,
+			 * 100); spaceship.position.set(100, 300)
+			 */;
+			 
+			 Spaceship spaceship = new Spaceship();
+			 spaceship.start();
 			
-			ArrayList<Sprite> laserList = new ArrayList<>();
-			ArrayList<Sprite> asteroidList = new ArrayList<>();
-			
-			int asteroidCount = 6;
+			int asteroidCount = 89;
 			for (int n = 0; n < asteroidCount; n++) {
 				Sprite asteroid = new Sprite("src/application/Images/asteroid.png", 50, 50);
 				double x = 500 * Math.random() + 300;
@@ -75,23 +84,18 @@ public class Asteroids extends Application {
 			AnimationTimer gameloop = new AnimationTimer() {				
 				public void handle(long nanotime) {
 					
-					if (keyPressedList.contains("LEFT")) {
-						spaceship.rotation -= 3.0;
-					} 
-					if (keyPressedList.contains("RIGHT")) {
-						spaceship.rotation += 3.0;
-					}
-					if (keyPressedList.contains("UP")) {
-						spaceship.velocity.setLength(150);
-						spaceship.velocity.setAngle(spaceship.rotation);
-					} else {
-						spaceship.velocity.setLength(0);
-					}
+					/*
+					 * if (keyPressedList.contains("LEFT")) { spaceship.rotation -= 3.0; } if
+					 * (keyPressedList.contains("RIGHT")) { spaceship.rotation += 3.0; } if
+					 * (keyPressedList.contains("UP")) { spaceship.velocity.setLength(150);
+					 * spaceship.velocity.setAngle(spaceship.rotation); } else {
+					 * spaceship.velocity.setLength(0); }
+					 */
 					if (keyJustPressedList.contains("SPACE")) {
 						Sprite laser = new Sprite("src/application/Images/bullet.png", 20, 20);
-						laser.position.set(spaceship.position.getX(), spaceship.position.getY());
+						laser.position.set(spaceship.getPosition().getX(), spaceship.getPosition().getY());
 						laser.velocity.setLength(400);
-						laser.velocity.setAngle(spaceship.rotation);
+						laser.velocity.setAngle(spaceship.getRotation());
 						laser.setRotation(spaceship.getRotation());
 						laserList.add(laser);
 					}
